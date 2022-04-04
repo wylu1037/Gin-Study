@@ -10,6 +10,7 @@ info:
 paths:
   /hello/say:
     get:
+      description: get string
       responses: {}
       summary: SayHello接口
       tags:

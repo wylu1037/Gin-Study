@@ -23,6 +23,7 @@ const docTemplate = `{
     "paths": {
         "/hello/say": {
             "get": {
+                "description": "get string",
                 "tags": [
                     "Hello相关接口"
                 ],

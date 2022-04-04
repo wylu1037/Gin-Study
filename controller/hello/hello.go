@@ -5,8 +5,9 @@ import (
 	"net/http"
 )
 
-// GetHelloHandler
+// GetHelloHandler godoc
 // @Summary SayHello接口
+// @Description  get string
 // @Tags Hello相关接口
 // @Router /hello/say [get]
 func GetHelloHandler(c *gin.Context) {

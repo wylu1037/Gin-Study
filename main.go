@@ -8,6 +8,8 @@ import (
 	"ginWeb/controller/hello"
 	"ginWeb/router"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
 	"net/http"
 )
@@ -25,7 +27,6 @@ func init() {
 	}
 }
 
-// 启动类入口
 // @title Golang Gin API
 // @version 1.0
 // @description An example of gin
@@ -38,6 +39,9 @@ func main() {
 	// 加载路由
 	router.Include(hello.Router)
 	routerInit := router.Init()
+
+	// swagger
+	routerInit.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	readTimeout := conf.ServerSetting.ReadTimeout
 	writeTimeout := conf.ServerSetting.WriteTimeout
@@ -58,7 +62,7 @@ func main() {
 		log.Fatalf("main start failed, err: %v", err)
 	}
 
-	/*err := r.Run()
+	/*err := routerInit.Run()
 	if err != nil {
 		log.Fatalf("gin web service startup failed, err: %v \n\n", err)
 	}*/
