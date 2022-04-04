@@ -1,8 +1,11 @@
 package router
 
 import (
+	_ "ginWeb/docs"
 	"ginWeb/middleware"
 	"github.com/gin-gonic/gin"
+	gs "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
 // Router 定义路由函数类型，泛指controller层的函数
@@ -25,5 +28,8 @@ func Init() *gin.Engine {
 	for _, rou := range routes {
 		rou(r)
 	}
+	//
+	r.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
+
 	return r
 }

@@ -1,0 +1,17 @@
+info:
+  contact: {}
+  description: An example of gin
+  license:
+    name: license
+    url: https://gitee.com/luwy5180/ginWeb
+  termsOfService: https://gitee.com/luwy5180/ginWeb
+  title: Golang Gin API
+  version: "1.0"
+paths:
+  /hello/say:
+    get:
+      responses: {}
+      summary: SayHello接口
+      tags:
+      - Hello相关接口
+swagger: "2.0"
