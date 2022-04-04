@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"ginWeb/conf"
+	"ginWeb/conf/mysql"
 	"ginWeb/conf/redis"
 	"ginWeb/controller/hello"
 	"ginWeb/router"
@@ -16,9 +17,9 @@ func init() {
 	// 读取配置文件
 	conf.ReadProps()
 	// 初始化mysql连接
-	conf.InitMysqlConnect()
+	mysql.InitConnect()
 	// 初始化redis连接
-	err := redis.InitRedisConnect()
+	err := redis.InitConnect()
 	if err != nil {
 		log.Fatalf("redis initialize failed, err: %v", err)
 	}
@@ -36,7 +37,7 @@ func main() {
 
 	// 加载路由
 	router.Include(hello.Router)
-	r := router.Init()
+	routerInit := router.Init()
 
 	readTimeout := conf.ServerSetting.ReadTimeout
 	writeTimeout := conf.ServerSetting.WriteTimeout
@@ -45,7 +46,8 @@ func main() {
 	maxHeaderBytes := 1 << 20
 
 	server := &http.Server{
-		Addr: endPoint, Handler: r,
+		Addr:           endPoint,
+		Handler:        routerInit,
 		ReadTimeout:    readTimeout,
 		WriteTimeout:   writeTimeout,
 		MaxHeaderBytes: maxHeaderBytes,

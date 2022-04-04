@@ -8,11 +8,11 @@ import (
 	"time"
 )
 
-var RedisConnect *redis.Pool
+var Connect *redis.Pool
 
-// InitRedisConnect 初始化Redis连接
-func InitRedisConnect() error {
-	RedisConnect = &redis.Pool{
+// InitConnect 初始化Redis连接
+func InitConnect() error {
+	Connect = &redis.Pool{
 		MaxIdle:     conf.RedisSetting.MaxIdle,
 		MaxActive:   conf.RedisSetting.MaxActive,
 		IdleTimeout: conf.RedisSetting.IdleTimeout,
@@ -40,7 +40,7 @@ func InitRedisConnect() error {
 
 // Select a database with the SELECT command:
 func Select(db int) (redis.Conn, error) {
-	conn := RedisConnect.Get()
+	conn := Connect.Get()
 	if _, err := conn.Do("SELECT", db); err != nil {
 		return nil, err
 	}
