@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"ginWeb/conf"
-	"ginWeb/conf/mysql"
-	"ginWeb/conf/redis"
+	"ginWeb/config"
+	"ginWeb/config/mysql"
+	"ginWeb/config/redis"
 	"ginWeb/controller/hello"
 	"ginWeb/router"
 	"github.com/gin-gonic/gin"
@@ -17,7 +17,7 @@ import (
 // 先于main函数执行，用于配置文件读取，数据库连接初始化等操作
 func init() {
 	// 读取配置文件
-	conf.ReadProps()
+	config.ReadProps()
 	// 初始化mysql连接
 	mysql.InitConnect()
 	// 初始化redis连接
@@ -34,7 +34,7 @@ func init() {
 // @license.name license
 // @license.url https://gitee.com/luwy5180/ginWeb
 func main() {
-	gin.SetMode(conf.ServerSetting.RunMode)
+	gin.SetMode(config.ServerSetting.RunMode)
 
 	// 加载路由
 	router.Include(hello.Router)
@@ -43,9 +43,9 @@ func main() {
 	// swagger
 	routerInit.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	readTimeout := conf.ServerSetting.ReadTimeout
-	writeTimeout := conf.ServerSetting.WriteTimeout
-	port := conf.ServerSetting.HttpPort
+	readTimeout := config.ServerSetting.ReadTimeout
+	writeTimeout := config.ServerSetting.WriteTimeout
+	port := config.ServerSetting.HttpPort
 	endPoint := fmt.Sprintf(":%d", port)
 	maxHeaderBytes := 1 << 20
 

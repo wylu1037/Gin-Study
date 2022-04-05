@@ -2,7 +2,7 @@ package mysql
 
 import (
 	"fmt"
-	"ginWeb/conf"
+	"ginWeb/config"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"log"
@@ -13,12 +13,12 @@ var DB *gorm.DB
 // InitConnect 初始化MySql连接
 func InitConnect() {
 	var err error
-	dialect := conf.DatabaseSetting.Dialect
+	dialect := config.DatabaseSetting.Dialect
 	url := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
-		conf.DatabaseSetting.User,
-		conf.DatabaseSetting.Password,
-		conf.DatabaseSetting.Host,
-		conf.DatabaseSetting.DatabaseName)
+		config.DatabaseSetting.User,
+		config.DatabaseSetting.Password,
+		config.DatabaseSetting.Host,
+		config.DatabaseSetting.DatabaseName)
 	DB, err = gorm.Open(dialect, url)
 	if err != nil {
 		log.Fatalf("gorm open mysql failed, err: %v", err)

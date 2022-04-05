@@ -2,7 +2,7 @@ package redis
 
 import (
 	"encoding/json"
-	"ginWeb/conf"
+	"ginWeb/config"
 	"github.com/gomodule/redigo/redis"
 	"log"
 	"time"
@@ -13,16 +13,16 @@ var Connect *redis.Pool
 // InitConnect 初始化Redis连接
 func InitConnect() error {
 	Connect = &redis.Pool{
-		MaxIdle:     conf.RedisSetting.MaxIdle,
-		MaxActive:   conf.RedisSetting.MaxActive,
-		IdleTimeout: conf.RedisSetting.IdleTimeout,
+		MaxIdle:     config.RedisSetting.MaxIdle,
+		MaxActive:   config.RedisSetting.MaxActive,
+		IdleTimeout: config.RedisSetting.IdleTimeout,
 		Dial: func() (redis.Conn, error) {
-			conn, err := redis.Dial("tcp", conf.RedisSetting.Host)
+			conn, err := redis.Dial("tcp", config.RedisSetting.Host)
 			if err != nil {
 				return nil, err
 			}
-			if conf.RedisSetting.Password != "" {
-				_, err := conn.Do("AUTH", conf.RedisSetting.Password)
+			if config.RedisSetting.Password != "" {
+				_, err := conn.Do("AUTH", config.RedisSetting.Password)
 				if err != nil {
 					conn.Close()
 					return nil, err

@@ -1,4 +1,4 @@
-package conf
+package config
 
 import (
 	"github.com/go-ini/ini"
@@ -41,7 +41,7 @@ var cfg *ini.File
 // ReadProps 读取配置
 func ReadProps() {
 	var err error
-	cfg, err = ini.Load("conf/application.ini")
+	cfg, err = ini.Load("config/application.ini")
 	if err != nil {
 		log.Fatalf("setting read file application.ini failed, err: %v \n", err)
 	}
