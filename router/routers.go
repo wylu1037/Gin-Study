@@ -23,8 +23,8 @@ func Init() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	// 注册全局中间件
-	r.Use(middleware.RequestConsume())
+	// 注册全局中间件：接口统计、jwt鉴权
+	r.Use(middleware.RequestConsume(), middleware.Auth())
 
 	for _, rou := range routes {
 		rou(r)
