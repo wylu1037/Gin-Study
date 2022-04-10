@@ -8,7 +8,7 @@ import (
 )
 
 // Auth 基于jwt的认证中间件
-func Auth() func(c *gin.Context) {
+func Auth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// 客户端携带Token有三种方式 1.放在请求头 2.放在请求体 3.放在URI
 		// 这里假设Token放在Header的Authorization中，并使用Bearer开头

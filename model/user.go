@@ -34,3 +34,9 @@ func ExistDuplicatedName(name string) bool {
 	mysql.DB.Model(&User{}).Where("user_name = ?", name).Limit(1).Count(&count)
 	return count > 0
 }
+
+func FindUser(userName, password string) *User {
+	user := User{}
+	mysql.DB.Where("user_name = ? and password = ?", userName, password).Find(&user)
+	return &user
+}

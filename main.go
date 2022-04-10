@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"ginWeb/config"
 	"ginWeb/config/mysql"
 	"ginWeb/config/redis"
@@ -12,7 +11,6 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
-	"net/http"
 )
 
 // 先于main函数执行，用于配置文件读取，数据库连接初始化等操作
@@ -44,7 +42,7 @@ func main() {
 	// swagger
 	routerInit.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	readTimeout := config.ServerSetting.ReadTimeout
+	/*readTimeout := config.ServerSetting.ReadTimeout
 	writeTimeout := config.ServerSetting.WriteTimeout
 	port := config.ServerSetting.HttpPort
 	endPoint := fmt.Sprintf(":%d", port)
@@ -61,10 +59,10 @@ func main() {
 	err := server.ListenAndServe()
 	if err != nil {
 		log.Fatalf("main start failed, err: %v", err)
-	}
+	}*/
 
-	/*err := routerInit.Run()
+	err := routerInit.Run()
 	if err != nil {
 		log.Fatalf("gin web service startup failed, err: %v \n\n", err)
-	}*/
+	}
 }

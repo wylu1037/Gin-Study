@@ -1,6 +1,7 @@
 package service
 
 import (
+	"ginWeb/config/jwt"
 	"ginWeb/model"
 	"log"
 )
@@ -13,4 +14,14 @@ func InsertUser(user model.User) {
 		return
 	}
 	model.InsertUser(user)
+}
+
+func Login(userName, password string) string {
+	user := model.FindUser(userName, password)
+	if user.ID != 0 {
+		token, _ := jwt.CreateToken(userName, user.ID)
+		return token
+	} else {
+		return ""
+	}
 }

@@ -11,12 +11,12 @@ var jwtSecret = []byte("HUST_1037")
 
 type Claims struct {
 	UserName string `json:"userName"`
-	UserId   int64  `json:"userId"`
+	UserId   uint   `json:"userId"`
 	jwt.StandardClaims
 }
 
 // CreateToken 生成token
-func CreateToken(userName string, userId int64) (string, error) {
+func CreateToken(userName string, userId uint) (string, error) {
 	// 设置有效期
 	expiredAt := time.Now().Add(2 * time.Hour)
 	claims := Claims{
@@ -45,5 +45,3 @@ func ParseToken(token string) (*Claims, error) {
 	}
 	return nil, errors.New("invalid token")
 }
-
-// 获取过期时间

@@ -5,6 +5,7 @@ import (
 	"ginWeb/service"
 	"github.com/gin-gonic/gin"
 	"log"
+	"net/http"
 )
 
 func PostInsertUserHandler(c *gin.Context) {
@@ -17,4 +18,23 @@ func PostInsertUserHandler(c *gin.Context) {
 	} else {
 		log.Fatal("failure")
 	}
+}
+
+func PostLoginHandler(c *gin.Context) {
+	userName := c.PostForm("userName")
+	password := c.PostForm("password")
+	token := service.Login(userName, password)
+
+	if token != "" {
+		c.JSON(http.StatusOK, gin.H{
+			"token":   token,
+			"message": "登录成功",
+		})
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"token":   token,
+			"message": "登录失败",
+		})
+	}
+
 }
