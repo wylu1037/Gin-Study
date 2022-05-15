@@ -6,6 +6,13 @@ import (
 	"time"
 )
 
+const (
+	FilePath        = "config/application.ini"
+	SectionDatabase = "database"
+	SectionRedis    = "redis"
+	SectionServer   = "server"
+)
+
 type Server struct {
 	RunMode      string
 	HttpPort     int
@@ -41,13 +48,13 @@ var cfg *ini.File
 // ReadProps 读取配置
 func ReadProps() {
 	var err error
-	cfg, err = ini.Load("config/application.ini")
+	cfg, err = ini.Load(FilePath)
 	if err != nil {
 		log.Fatalf("setting read file application.ini failed, err: %v \n", err)
 	}
-	mapTo("database", DatabaseSetting)
-	mapTo("redis", RedisSetting)
-	mapTo("server", ServerSetting)
+	mapTo(SectionDatabase, DatabaseSetting)
+	mapTo(SectionRedis, RedisSetting)
+	mapTo(SectionServer, ServerSetting)
 }
 
 // 将配置文件的属性匹配赋值到结构体上
