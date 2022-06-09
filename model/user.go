@@ -6,6 +6,7 @@ import (
 	"log"
 )
 
+// User Entity-用户
 type User struct {
 	gorm.Model
 	Account  string
@@ -14,6 +15,7 @@ type User struct {
 	UserName string
 }
 
+// InsertUser ModelSql-插入用户
 func InsertUser(user User) uint {
 	result := mysql.DB.Create(&user)
 	err := result.Error
@@ -35,6 +37,7 @@ func ExistDuplicatedName(name string) bool {
 	return count > 0
 }
 
+// FindUser ModelSql-查找用户
 func FindUser(userName, password string) *User {
 	user := User{}
 	mysql.DB.Where("user_name = ? and password = ?", userName, password).Find(&user)

@@ -8,7 +8,8 @@ import (
 	"net/http"
 )
 
-func PostInsertUserHandler(c *gin.Context) {
+// InsertUserHandler Controller-POST-插入用户记录
+func InsertUserHandler(c *gin.Context) {
 	var user model.User
 
 	// 参数绑定
@@ -20,7 +21,8 @@ func PostInsertUserHandler(c *gin.Context) {
 	}
 }
 
-func PostLoginHandler(c *gin.Context) {
+// LoginHandler Controller-POST-用户登录
+func LoginHandler(c *gin.Context) {
 	userName := c.PostForm("userName")
 	password := c.PostForm("password")
 	token := service.Login(userName, password)
@@ -36,5 +38,4 @@ func PostLoginHandler(c *gin.Context) {
 			"message": "登录失败",
 		})
 	}
-
 }
