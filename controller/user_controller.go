@@ -1,4 +1,4 @@
-package user
+package controller
 
 import (
 	"ginWeb/model"
@@ -8,7 +8,12 @@ import (
 	"net/http"
 )
 
-func PostInsertUserHandler(c *gin.Context) {
+func UserRouter(e *gin.Engine) {
+	e.POST("/user/insert", insertUserHandler)
+	e.POST("/user/login", loginHandler)
+}
+
+func insertUserHandler(c *gin.Context) {
 	var user model.User
 
 	// 参数绑定
@@ -20,7 +25,7 @@ func PostInsertUserHandler(c *gin.Context) {
 	}
 }
 
-func PostLoginHandler(c *gin.Context) {
+func loginHandler(c *gin.Context) {
 	userName := c.PostForm("userName")
 	password := c.PostForm("password")
 	token := service.Login(userName, password)
@@ -36,5 +41,4 @@ func PostLoginHandler(c *gin.Context) {
 			"message": "登录失败",
 		})
 	}
-
 }
