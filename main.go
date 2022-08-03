@@ -4,8 +4,7 @@ import (
 	"ginWeb/config"
 	"ginWeb/config/mysql"
 	"ginWeb/config/redis"
-	"ginWeb/controller/hello"
-	"ginWeb/controller/user"
+	"ginWeb/controller"
 	"ginWeb/router"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -36,7 +35,7 @@ func main() {
 	gin.SetMode(config.ServerSetting.RunMode)
 
 	// 加载路由
-	router.Include(hello.Router, user.Router)
+	router.Include(controller.HelloRouter, controller.UserRouter)
 	routerInit := router.Init()
 
 	// swagger

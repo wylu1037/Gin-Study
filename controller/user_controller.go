@@ -1,4 +1,4 @@
-package user
+package controller
 
 import (
 	"ginWeb/model"
@@ -8,8 +8,12 @@ import (
 	"net/http"
 )
 
-// InsertUserHandler Controller-POST-插入用户记录
-func InsertUserHandler(c *gin.Context) {
+func UserRouter(e *gin.Engine) {
+	e.POST("/user/insert", insertUserHandler)
+	e.POST("/user/login", loginHandler)
+}
+
+func insertUserHandler(c *gin.Context) {
 	var user model.User
 
 	// 参数绑定
@@ -21,8 +25,7 @@ func InsertUserHandler(c *gin.Context) {
 	}
 }
 
-// LoginHandler Controller-POST-用户登录
-func LoginHandler(c *gin.Context) {
+func loginHandler(c *gin.Context) {
 	userName := c.PostForm("userName")
 	password := c.PostForm("password")
 	token := service.Login(userName, password)
